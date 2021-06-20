@@ -3,7 +3,7 @@ require_relative '../../lib/csvprocessor'
 RSpec.describe CSVProcessor do
   # Mocking out ARGV in these tests
   # Not testing that the help message is displayed, but I think I could capture the stdout.
-  let(:input) { File.join(File.expand_path('../', __FILE__), 'test_input.csv') }
+  let(:input) { File.join(File.expand_path('../../', __FILE__), 'test_input.csv') }
   let(:output) { 'different_output.csv' }
   let(:report) { 'different_report.txt' }
 
