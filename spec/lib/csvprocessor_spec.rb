@@ -17,7 +17,18 @@ RSpec.describe CSVProcessor do
     it "processes the data" do
       processor = CSVProcessor.new(args, false)
       processor.process()
-      #expect(processor.output).to be_truthy
+      expect(processor.output).to be_truthy
+    end
+
+    it "completes some stats" do
+      processor = CSVProcessor.new(args, false)
+      processor.process()
+      expect(processor.records).to eq 2
+      expect(processor.valid_records).to eq 1
+      expect(processor.invalid_rows).to eq [3]
+      expect(processor.start).to be_truthy
+      expect(processor.stop).to be_truthy
+      expect(processor.elapsed).to be_truthy
     end
   end
 
@@ -40,7 +51,8 @@ RSpec.describe CSVProcessor do
   context "without an input file" do
     let(:args) { [] }
     it "would not process the file" do
-      processor = CSVProcessor.new(args)
+      expect(CSVProcessor.new(args).input_path).to eq ""
+      expect { CSVProcessor.new(args).process }.to raise_error(Errno::ENOENT)
     end
   end
 end
